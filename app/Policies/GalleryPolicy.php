@@ -96,4 +96,9 @@ class GalleryPolicy
     {
         return true;
     }
+
+    public function addImages(User $user, Gallery $gallery)
+    {
+        return true;
+    }
 }

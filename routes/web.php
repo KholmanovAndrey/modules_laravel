@@ -23,8 +23,12 @@ Route::get('/dashboard', function () {
 
 Route::put('/gallery/{gallery}/publication', [\App\Http\Controllers\GalleryController::class, 'publication'])
     ->name('gallery.publication');
+Route::put('/gallery/{gallery}/add-images', [\App\Http\Controllers\GalleryController::class, 'addImages'])
+    ->name('gallery.add-images');
 Route::resource('/gallery', \App\Http\Controllers\GalleryController::class);
 
+Route::put('/gallery-image/{gallery}/publication', [\App\Http\Controllers\GalleryImageController::class, 'publication'])
+    ->name('gallery-image.publication');
 Route::resource('/gallery-image', \App\Http\Controllers\GalleryImageController::class);
 
 require __DIR__.'/auth.php';

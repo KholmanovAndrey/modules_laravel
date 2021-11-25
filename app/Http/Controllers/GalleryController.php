@@ -185,4 +185,18 @@ class GalleryController extends Controller
         return redirect()->route('gallery.index')
             ->with('error', 'Данные не были опубликованны!');
     }
+
+    public function addImages(Gallery $gallery, Request $request)
+    {
+        $this->authorize('addImages', $gallery);
+
+        if ($request->isMethod('post')) {
+            if ($request->hasFile('files')) {
+                foreach ($request->file('files') as $key => $file) {
+                    $path = $file->storeAs('avatars', $request->user()->id, 's3');
+                    echo $path.'<br/>';
+                }
+            }
+        }
+    }
 }

@@ -26,7 +26,7 @@
                         </form>
                     </div>
                     <div class="buttons flex">
-                        <x-link :href="route('gallery.add-images')">Новое фото</x-link>
+                        <x-link :href="route('gallery-image.create')">Новое фото</x-link>
                     </div>
                     <div class="box">
                         @foreach ($gallery->images as $image)

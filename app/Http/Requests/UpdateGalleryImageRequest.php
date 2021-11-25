@@ -27,7 +27,7 @@ class UpdateGalleryImageRequest extends FormRequest
             'name' => 'required|string|min:3|max:150',
             'title' => 'required|string|min:3|max:150',
             'description' => 'required|string|min:10|max:250',
-            'url' => 'required|string|min:3|max:150',
+            'url' => 'required|mimes:csv,txt,xlx,xls,pdf',
         ];
     }
 }
