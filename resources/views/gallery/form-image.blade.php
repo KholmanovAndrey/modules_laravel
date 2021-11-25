@@ -16,7 +16,8 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="form">
                         <form method="POST"
-                              action="@if (!$gallery->id){{ route('gallery.store') }}@else{{ route('gallery.update', $gallery) }}@endif">
+                              action="{{ route('gallery.store-images', $gallery) }}"
+                              enctype="multipart/form-data">
                             @csrf
 
                             <div class="mb-2">
@@ -25,7 +26,7 @@
 
                                 <x-input
                                         id="files"
-                                        type="files"
+                                        type="file"
                                         name="files[]"
                                         placeholder="Choose files"
                                         multiple />

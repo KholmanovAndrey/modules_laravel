@@ -26,14 +26,14 @@
                         </form>
                     </div>
                     <div class="buttons flex">
-                        <x-link :href="route('gallery.add-images')">Новое фото</x-link>
+                        <x-link :href="route('gallery.add-images', $gallery)">Новые картинки</x-link>
                     </div>
                     <div class="box">
                         @foreach ($gallery->images as $image)
                             <div class="image">
                                 <div class="image__img"><img src="{{ $image->url }}" alt="{{ $image->name }}"></div>
                                 <div class="image__title">{{ $image->title }}</div>
-                                <div class="image__description">{{ $image->description }}</div>
+                                <div class="image__title">{{ $image->image }}</div>
                                 <div class="image__description">{{ $image->description }}</div>
                                 <div class="image__actions flex">
                                     <x-link class="mr-1" :href="route('gallery-image.show', $image)">Просмотр</x-link>

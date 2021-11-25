@@ -14,13 +14,13 @@ class CreateGalleryImagesTable extends Migration
     public function up()
     {
         Schema::create('gallery_images', function (Blueprint $table) {
-            $table->bigInteger('id');
+            $table->bigIncrements('id');
 
             $table->unsignedBigInteger('gallery_id');
             $table->string('name')->nullable()->comment('Название для поля alt');
             $table->string('title')->nullable()->comment('Наименование');
             $table->string('description')->nullable()->comment('Описание');
-            $table->string('url')->comment('Url картинки');
+            $table->string('image')->comment('Url картинки');
             $table->boolean('isPublished')->default(1)->comment('Опубликован(1)/Скрыт(0)');
             $table->boolean('isDeleted')->default(0)->comment('Удален(1)/Рабочий(0)');
 

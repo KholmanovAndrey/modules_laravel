@@ -10,10 +10,11 @@ class GalleryImage extends Model
     use HasFactory;
 
     public $fillable = [
+        'gallery_id',
         'name',
         'title',
         'description',
-        'url',
+        'image',
         'isPublished',
         'isDeleted',
     ];

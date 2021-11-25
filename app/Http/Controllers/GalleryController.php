@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreImagesGalleryRequest;
 use App\Models\Gallery;
 use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
+use App\Models\GalleryImage;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
@@ -190,13 +192,36 @@ class GalleryController extends Controller
     {
         $this->authorize('addImages', $gallery);
 
+        return view('gallery.form-image', [
+            'gallery' => $gallery
+        ]);
+    }
+
+    public function storeImages(StoreImagesGalleryRequest $request, Gallery $gallery)
+    {
+        $this->authorize('addImages', $gallery);
+
         if ($request->isMethod('post')) {
             if ($request->hasFile('files')) {
                 foreach ($request->file('files') as $key => $file) {
-                    $path = $file->storeAs('avatars', $request->user()->id, 's3');
-                    echo $path.'<br/>';
+                    $path = public_path('storage')."/galleries/{$gallery->id}/";
+                    $name = $file->getClientOriginalName();
+
+                    // проверяем на существование файла, если есть то переименовываем файл
+                    if (file_exists($path.$name)) {
+                        $name = $file->hashName();
+                    }
+                    $file->move($path, $name);
+
+                    $image = new GalleryImage();
+                    $image->gallery_id = $gallery->id;
+                    $image->image = $name;
+                    $image->save();
                 }
             }
         }
+
+        return redirect()->route('gallery.show', $gallery)
+            ->with('success', 'Данные успешно добавлены!');
     }
 }
