@@ -203,9 +203,12 @@ class GalleryController extends Controller
 
         if ($request->isMethod('post')) {
             if ($request->hasFile('files')) {
+                $path = public_path('storage')."/galleries/{$gallery->id}/";
+                $position = GalleryImage::query()->where('gallery_id', '=', $gallery->id)->count();
+
                 foreach ($request->file('files') as $key => $file) {
-                    $path = public_path('storage')."/galleries/{$gallery->id}/";
                     $name = $file->getClientOriginalName();
+                    $position++;
 
                     // проверяем на существование файла, если есть то переименовываем файл
                     if (file_exists($path.$name)) {
@@ -216,6 +219,7 @@ class GalleryController extends Controller
                     $image = new GalleryImage();
                     $image->gallery_id = $gallery->id;
                     $image->image = $name;
+                    $image->position = $position;
                     $image->save();
                 }
             }

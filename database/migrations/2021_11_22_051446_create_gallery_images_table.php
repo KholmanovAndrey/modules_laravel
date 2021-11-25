@@ -21,6 +21,7 @@ class CreateGalleryImagesTable extends Migration
             $table->string('title')->nullable()->comment('Наименование');
             $table->string('description')->nullable()->comment('Описание');
             $table->string('image')->comment('Url картинки');
+            $table->bigInteger('position')->comment('Позиция в очереди');
             $table->boolean('isPublished')->default(1)->comment('Опубликован(1)/Скрыт(0)');
             $table->boolean('isDeleted')->default(0)->comment('Удален(1)/Рабочий(0)');
 
