@@ -31,6 +31,12 @@
                         <x-link :href="route('gallery.add-images', $gallery)">Новые картинки</x-link>
                     </div>
                     <div class="box">
+                        <div class="image mt-2 p-2 flex justify-between items-center bg-gray-900 text-white">
+                            <div class="w-1/4">Картинка</div>
+                            <div class="w-1/4 pl-2">Наименование</div>
+                            <div class="w-1/12 text-center">Позиция</div>
+                            <div class="w-5/12 text-right">Действия</div>
+                        </div>
                         @foreach ($gallery->images as $image)
                             <div class="image mt-2 flex justify-between items-center">
                                 <div class="image__img w-1/4">
@@ -38,24 +44,25 @@
                                             src="{{ "/storage/galleries/{$gallery->id}/" . $image->image }}"
                                             alt="{{ $image->name }}">
                                 </div>
-                                <div class="image__title">{{ $image->title }}</div>
-                                <div class="image__title">{{ $image->image }}</div>
-                                <div class="image__title">{{ $image->position }}</div>
-                                <div class="image__description">{{ $image->description }}</div>
-                                <div class="image__actions flex">
-                                    <div>
-                                        <x-link class="mr-1" :href="route('gallery-image.show', $image)">Просмотр</x-link>
+                                <div class="w-1/4 pl-2">
+                                    <div class="image__title">{{ $image->title }}</div>
+                                    <div class="image__description">{{ $image->description }}</div>
+                                </div>
+                                <div class="image__position w-1/12 text-center">{{ $image->position }}</div>
+                                <div class="image__actions w-5/12 flex justify-end flex-wrap">
+                                    <div class="mr-1 mb-1">
+                                        <x-link :href="route('gallery-image.show', $image)">Просмотр</x-link>
                                     </div>
-                                    <div>
-                                        <x-link class="mr-1" :href="route('gallery-image.edit', $image)">Редактировать</x-link>
+                                    <div class="mr-1 mb-1">
+                                        <x-link :href="route('gallery-image.edit', $image)">Редактировать</x-link>
                                     </div>
-                                    <form class="mr-1" method="POST"
+                                    <form class="mr-1 mb-1" method="POST"
                                           action="{{ route('gallery-image.publication', $image) }}">
                                         @csrf
                                         @method('PUT')
                                         <x-button>@if ($gallery->isPublished) Опубликовать @else Скрыть @endif</x-button>
                                     </form>
-                                    <form class="mr-1" method="POST"
+                                    <form class="mr-1 mb-1" method="POST"
                                           action="{{ route('gallery-image.destroy', $image) }}">
                                         @csrf
                                         @method('DELETE')

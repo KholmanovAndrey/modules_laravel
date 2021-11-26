@@ -18,7 +18,7 @@ class GalleryImagePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class GalleryImagePolicy
      */
     public function view(User $user, GalleryImage $galleryImage)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +41,7 @@ class GalleryImagePolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class GalleryImagePolicy
      */
     public function update(User $user, GalleryImage $galleryImage)
     {
-        //
+        return true;
     }
 
     /**
@@ -65,7 +65,7 @@ class GalleryImagePolicy
      */
     public function delete(User $user, GalleryImage $galleryImage)
     {
-        //
+        return true;
     }
 
     /**
@@ -77,7 +77,7 @@ class GalleryImagePolicy
      */
     public function restore(User $user, GalleryImage $galleryImage)
     {
-        //
+        return false;
     }
 
     /**
@@ -89,6 +89,6 @@ class GalleryImagePolicy
      */
     public function forceDelete(User $user, GalleryImage $galleryImage)
     {
-        //
+        return false;
     }
 }

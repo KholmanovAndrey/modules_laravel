@@ -16,7 +16,7 @@ class GalleryImageController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Gallery::class);
+        $this->authorize('viewAny', GalleryImage::class);
     }
 
     /**
@@ -26,7 +26,11 @@ class GalleryImageController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Gallery::class);
+        $this->authorize('create', GalleryImage::class);
+
+        return view('gallery-image.form', [
+            'galleryImage' => new GalleryImage()
+        ]);
     }
 
     /**
@@ -37,7 +41,7 @@ class GalleryImageController extends Controller
      */
     public function store(StoreGalleryImageRequest $request)
     {
-        $this->authorize('create', Gallery::class);
+        $this->authorize('create', GalleryImage::class);
     }
 
     /**
@@ -60,6 +64,10 @@ class GalleryImageController extends Controller
     public function edit(GalleryImage $galleryImage)
     {
         $this->authorize('update', $galleryImage);
+
+        return view('gallery-image\form', [
+            'galleryImage' => $galleryImage
+        ]);
     }
 
     /**
@@ -72,6 +80,20 @@ class GalleryImageController extends Controller
     public function update(UpdateGalleryImageRequest $request, GalleryImage $galleryImage)
     {
         $this->authorize('update', $galleryImage);
+
+        if ($request->isMethod('put')) {
+            $request->flash();
+
+            $galleryImage->fill($request->all());
+
+            if ($galleryImage->save()) {
+                return redirect()->route('gallery.show', $galleryImage->gallery_id)
+                    ->with('success', 'Данные успешно обновлены!');
+            }
+
+            return redirect()->route('gallery-image.update', $galleryImage)
+                ->with('error', 'Ошибка обновления данных!');
+        }
     }
 
     /**

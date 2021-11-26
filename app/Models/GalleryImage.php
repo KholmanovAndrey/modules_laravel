@@ -15,6 +15,7 @@ class GalleryImage extends Model
         'title',
         'description',
         'image',
+        'position',
         'isPublished',
         'isDeleted',
     ];
