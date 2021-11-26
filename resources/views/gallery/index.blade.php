@@ -12,29 +12,40 @@
                     <div class="buttons flex">
                         <x-link :href="route('gallery.create')">Новая галерея</x-link>
                     </div>
-                    <div class="filters">
+                    <div class="filters mt-2">
                         <a href="{{ route('gallery.index') }}">Все</a>
                         <a href="{{ route('gallery.index', ['value' => 'isPublished']) }}">Опубликованные</a>
                         <a href="{{ route('gallery.index', ['value' => 'isDeleted']) }}">Удаленные</a>
                     </div>
                     <div class="box">
-                        @php
-                            foreach ($galleries as $gallery) :
-                        @endphp
-                        <div class="item">
-                            <div class="title">{{ $gallery->title }}</div>
-                            <div class="title">{{ $gallery->isPublished }}</div>
-                            <div class="title">{{ $gallery->isDeleted }}</div>
-                            <div class="actions flex">
-                                <x-link class="mr-1" :href="route('gallery.show', $gallery)">Просмотр</x-link>
-                                <x-link class="mr-1" :href="route('gallery.edit', $gallery)">Редактировать</x-link>
-                                <form method="POST" class="mr-1"
+                        <div class="image mt-2 p-2 flex justify-between items-center bg-gray-900 text-white">
+                            <div class="w-1/2">Наименование</div>
+                            <div class="w-1/12 text-center">Публикация</div>
+                            <div class="w-1/12 text-center">Удалено</div>
+                            <div class="w-4/12 text-right">Действия</div>
+                        </div>
+                        @foreach ($galleries as $gallery)
+                        <div class="item mt-2 flex justify-between items-center">
+                            <div class="title w-1/2">
+                                <div>{{ $gallery->title }}</div>
+                                <div>{{ $gallery->description }}</div>
+                            </div>
+                            <div class="isPublished w-1/12 text-center">{{ $gallery->isPublished ? 'Да' : 'Нет' }}</div>
+                            <div class="isDeleted w-1/12 text-center">{{ $gallery->isDeleted ? 'Да' : 'Нет' }}</div>
+                            <div class="actions w-4/12 flex flex-wrap justify-end">
+                                <div class="mr-1 mb-1">
+                                    <x-link :href="route('gallery.show', $gallery)">Просмотр</x-link>
+                                </div>
+                                <div class="mr-1 mb-1">
+                                    <x-link :href="route('gallery.edit', $gallery)">Редактировать</x-link>
+                                </div>
+                                <form method="POST" class="mr-1 mb-1"
                                       action="{{ route('gallery.publication', $gallery) }}">
                                     @csrf
                                     @method('PUT')
                                     <x-button>@if (!$gallery->isPublished) Опубликовать @else Скрыть @endif</x-button>
                                 </form>
-                                <form method="POST" class="mr-1"
+                                <form method="POST" class="mr-1 mb-1"
                                       action="{{ route('gallery.destroy', $gallery) }}">
                                     @csrf
                                     @method('DELETE')
@@ -42,7 +53,7 @@
                                 </form>
                             </div>
                         </div>
-                        @php endforeach @endphp
+                        @endforeach
                     </div>
                 </div>
             </div>

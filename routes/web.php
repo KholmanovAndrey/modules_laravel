@@ -29,7 +29,7 @@ Route::post('/gallery/{gallery}/store-images', [\App\Http\Controllers\GalleryCon
     ->name('gallery.store-images');
 Route::resource('/gallery', \App\Http\Controllers\GalleryController::class);
 
-Route::put('/gallery-image/{gallery}/publication', [\App\Http\Controllers\GalleryImageController::class, 'publication'])
+Route::put('/gallery-image/{gallery_image}/publication', [\App\Http\Controllers\GalleryImageController::class, 'publication'])
     ->name('gallery-image.publication');
 Route::resource('/gallery-image', \App\Http\Controllers\GalleryImageController::class);
 

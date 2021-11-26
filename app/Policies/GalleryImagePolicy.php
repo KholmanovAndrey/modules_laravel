@@ -91,4 +91,16 @@ class GalleryImagePolicy
     {
         return false;
     }
+
+    /**
+     * Determine whether the user can publication the model.
+     *
+     * @param User $user
+     * @param GalleryImage $galleryImage
+     * @return bool
+     */
+    public function publication(User $user, GalleryImage $galleryImage)
+    {
+        return true;
+    }
 }

@@ -21,13 +21,14 @@
                             @csrf
 
                             <div class="mb-2">
-                                <x-label for="files" :value="__('Наименование')" />
+                                <x-label for="files" :value="__('Добавление файлов')" />
 
 
                                 <x-input
                                         id="files"
                                         type="file"
                                         name="files[]"
+                                        accept="image/jpeg,image/png,image/gif"
                                         placeholder="Choose files"
                                         multiple />
                             </div>

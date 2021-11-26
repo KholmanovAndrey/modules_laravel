@@ -188,6 +188,13 @@ class GalleryController extends Controller
             ->with('error', 'Данные не были опубликованны!');
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Gallery $gallery
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function addImages(Gallery $gallery, Request $request)
     {
         $this->authorize('addImages', $gallery);
@@ -197,6 +204,13 @@ class GalleryController extends Controller
         ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param StoreImagesGalleryRequest $request
+     * @param Gallery $gallery
+     * @return $this
+     */
     public function storeImages(StoreImagesGalleryRequest $request, Gallery $gallery)
     {
         $this->authorize('addImages', $gallery);

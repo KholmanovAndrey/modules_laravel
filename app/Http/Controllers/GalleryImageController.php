@@ -6,6 +6,7 @@ use App\Models\Gallery;
 use App\Models\GalleryImage;
 use App\Http\Requests\StoreGalleryImageRequest;
 use App\Http\Requests\UpdateGalleryImageRequest;
+use Illuminate\Http\Request;
 
 class GalleryImageController extends Controller
 {
@@ -102,8 +103,43 @@ class GalleryImageController extends Controller
      * @param  \App\Models\GalleryImage  $galleryImage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GalleryImage $galleryImage)
+    public function destroy(GalleryImage $galleryImage, Request $request)
     {
         $this->authorize('delete', $galleryImage);
+
+        if ($request->isMethod('delete')) {
+            $galleryImage->isDeleted = !$galleryImage->isDeleted;
+            $galleryImage->isPublished = 0;
+
+            if ($galleryImage->save()) {
+                return redirect()->route('gallery.show', $galleryImage->gallery_id);
+            }
+        }
+
+        return redirect()->route('gallery.show', $galleryImage->gallery_id)
+            ->with('error', 'Данные не были удалены!');
+    }
+
+    /**
+     * Publication gallery image
+     *
+     * @param GalleryImage $galleryImage
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function publication(GalleryImage $galleryImage, Request $request)
+    {
+        $this->authorize('publication', $galleryImage);
+
+        if ($request->isMethod('put')) {
+            $galleryImage->isPublished = !$galleryImage->isPublished;
+
+            if ($galleryImage->save()) {
+                return redirect()->route('gallery.show', $galleryImage->gallery_id);
+            }
+        }
+
+        return redirect()->route('gallery.show', $galleryImage->gallery_id)
+            ->with('error', 'Данные не были опубликованны!');
     }
 }

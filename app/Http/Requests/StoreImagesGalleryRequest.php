@@ -25,7 +25,7 @@ class StoreImagesGalleryRequest extends FormRequest
     {
         return [
             'files' => 'required',
-            'files.*' => 'mimes:jpg,jpeg,png'
+            'files.*' => 'mimes:jpg,jpeg,png,gif'
         ];
     }
 }
